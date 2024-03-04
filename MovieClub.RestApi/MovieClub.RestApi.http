@@ -1,0 +1,6 @@
+@MovieClub.RestApi_HostAddress = http://localhost:5037
+
+GET {{MovieClub.RestApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
