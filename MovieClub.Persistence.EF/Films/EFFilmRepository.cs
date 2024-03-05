@@ -35,8 +35,9 @@ namespace MovieClub.Persistence.EF.Films
 
         public async Task<List<GetFilmDto>?> GetAll(GetFilmFilterDto? dto)
         {
-            var films = _films.Select(film => new GetFilmDto()
+            var films = _films.Include(_=>_.Genre).Select(film => new GetFilmDto()
             {
+                Id=film.Id,
                 Name = film.Name,
                 Description = film.Description,
                 PublishYear = film.PublishYear,
@@ -45,7 +46,7 @@ namespace MovieClub.Persistence.EF.Films
                 Director = film.Director,
                 Duration = film.Duration,
                 MinAgeLimit = "+ " + film.MinAgeLimit,
-
+                GenreName=film.Genre.Title
             });
             if (dto.Name != null)
             {

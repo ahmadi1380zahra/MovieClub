@@ -44,7 +44,7 @@ namespace MovieClub.Persistence.EF.Genres
             {
                 Id = x.Id,
                 Title = x.Title,
-                Rate = x.Rate,
+                //Rate = x.Rate,
             }).ToListAsync();
             return genres;
         }

@@ -16,7 +16,7 @@ namespace MovieClub.Tests.Tools.Films
             {
                 Name = "Update_dummy-film-name",
                 Description = null,
-                PublishYear = new DateTime(2000, 12, 1),
+                PublishYear = 2018,
                 DailyPriceRent = 100.12M,
                 MinAgeLimit = 14,
                 PenaltyPriceRent = 0.10M,

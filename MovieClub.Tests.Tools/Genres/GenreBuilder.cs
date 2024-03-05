@@ -15,7 +15,7 @@ namespace MovieClub.Tests.Tools.Genres
             _genre = new Genre
             {
                 Title = "dummy-title",
-                Rate = 0
+                //Rate = 0
             };
         }
         public GenreBuilder WithTitle(string title)

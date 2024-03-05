@@ -9,10 +9,11 @@ namespace MovieClub.Services.Films.FilmMananger.Contracts.Dtos
 {
     public class GetFilmDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string? Description { get; set; }
 
-        public DateTime PublishYear { get; set; }
+        public int PublishYear { get; set; }
 
         public Decimal DailyPriceRent { get; set; }
 
@@ -20,10 +21,10 @@ namespace MovieClub.Services.Films.FilmMananger.Contracts.Dtos
 
         public Decimal PenaltyPriceRent { get; set; }
 
-        public Decimal Duration { get; set; }
+        public int Duration { get; set; }
 
         public string Director { get; set; }
 
-       
+        public string GenreName { get; set; }
     }
 }

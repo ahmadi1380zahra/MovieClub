@@ -27,7 +27,7 @@ namespace MovieClub.Services.Genres.GenreManagers
             var genre = new Genre
             {
                 Title = dto.Title,
-                Rate = 0,
+                //Rate = 0,
             };
             _repository.Add(genre);
             await _unitOfWork.Complete();

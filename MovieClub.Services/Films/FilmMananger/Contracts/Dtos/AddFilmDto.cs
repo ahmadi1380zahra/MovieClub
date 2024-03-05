@@ -14,7 +14,7 @@ namespace MovieClub.Services.Films.FilmMananger.Contracts.Dtos
         public string Name { get; set; }
         public string? Description { get; set; }
         [Required]
-        public DateTime PublishYear { get; set; }
+        public int PublishYear { get; set; }
         [Required]
         public Decimal DailyPriceRent { get; set; }
         [Required]
@@ -22,7 +22,7 @@ namespace MovieClub.Services.Films.FilmMananger.Contracts.Dtos
         [Required]
         public Decimal PenaltyPriceRent { get; set; }
         [Required]
-        public Decimal Duration { get; set; }
+        public int Duration { get; set; }
         [Required]
         [MaxLength(50)]
         public string Director { get; set; }

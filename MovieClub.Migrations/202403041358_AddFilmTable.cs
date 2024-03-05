@@ -19,10 +19,10 @@ namespace MovieClub.Migrations
                  .WithColumn("Director").AsString(50).NotNullable()
                  .WithColumn("Stock").AsInt32().NotNullable()
                  .WithColumn("MinAgeLimit").AsInt32().NotNullable()
-                 .WithColumn("PublishYear").AsDate().NotNullable()
-                 .WithColumn("DailyPriceRent").AsDecimal().NotNullable()
-                 .WithColumn("PenaltyPriceRent").AsDecimal().NotNullable()
-                 .WithColumn("Duration").AsDecimal().NotNullable()
+                 .WithColumn("PublishYear").AsInt32().NotNullable()
+                 .WithColumn("DailyPriceRent").AsDecimal(18, 2).NotNullable()
+                 .WithColumn("PenaltyPriceRent").AsDecimal(18, 2).NotNullable()
+                 .WithColumn("Duration").AsInt32().NotNullable()
                  .WithColumn("GenreId").AsInt32().NotNullable()
                      .ForeignKey("FK_Films_Genres", "Genres", "Id");
         }

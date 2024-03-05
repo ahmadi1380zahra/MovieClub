@@ -8,9 +8,13 @@ namespace MovieClub.Entities
 {
     public class Genre
     {
+        public Genre()
+        {
+            Films = new();
+        }
         public int Id { get; set; }
         public string Title { get; set; }
-        public Decimal Rate { get; set; }
+        //public Decimal Rate { get; set; }
         public HashSet<Film> Films { get; set; }
     }
 }

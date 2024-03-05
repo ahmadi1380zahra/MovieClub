@@ -14,10 +14,10 @@ namespace MovieClub.Entities
         public string Director { get; set; }
         public int Stock { get; set; }
         public int MinAgeLimit { get; set; }
-        public DateTime PublishYear { get; set; }
+        public int PublishYear { get; set; }
         public Decimal DailyPriceRent { get; set; }
         public Decimal PenaltyPriceRent { get; set; }
-        public Decimal Duration { get; set; }
+        public int Duration { get; set; }
         public Genre Genre { get; set; }
         public int GenreId { get; set; }
     }

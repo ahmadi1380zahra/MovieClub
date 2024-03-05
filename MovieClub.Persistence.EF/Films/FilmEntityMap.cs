@@ -21,9 +21,9 @@ namespace MovieClub.Persistence.EF.Films
             builder.Property(_=>_.Stock).IsRequired();
             builder.Property(_=>_.MinAgeLimit).IsRequired();
             builder.Property(_=>_.PublishYear).IsRequired();
-            builder.Property(_ => _.DailyPriceRent).HasPrecision(10,2).IsRequired();
-            builder.Property(_ => _.PenaltyPriceRent).HasPrecision(10,2).IsRequired();
-            builder.Property(_ => _.Duration).HasPrecision(10,2).IsRequired();
+            builder.Property(_ => _.DailyPriceRent).HasPrecision(18,2).IsRequired();
+            builder.Property(_ => _.PenaltyPriceRent).HasPrecision(18,2).IsRequired();
+            builder.Property(_ => _.Duration).IsRequired();
            
 
             builder.HasOne(_ => _.Genre)

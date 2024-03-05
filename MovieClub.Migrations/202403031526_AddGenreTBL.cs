@@ -14,8 +14,8 @@ namespace MovieClub.Migrations
         {
             Create.Table("Genres")
                 .WithColumn("Id").AsInt32().Identity().PrimaryKey()
-                .WithColumn("Title").AsString(50).NotNullable()
-                .WithColumn("Rate").AsDecimal().NotNullable();
+                .WithColumn("Title").AsString(50).NotNullable();
+                //.WithColumn("Rate").AsDecimal().NotNullable();
 
         }
         public override void Down()

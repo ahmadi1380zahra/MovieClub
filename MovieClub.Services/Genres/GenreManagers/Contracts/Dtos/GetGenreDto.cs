@@ -10,6 +10,6 @@ namespace MovieClub.Services.Genres.GenreManagers.Contracts.Dtos
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public Decimal Rate { get; set; }
+        //public Decimal Rate { get; set; }
     }
 }

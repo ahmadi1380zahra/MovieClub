@@ -16,7 +16,7 @@ namespace MovieClub.Persistence.EF.Genres
             builder.HasKey(_ => _.Id);
             builder.Property(_ => _.Id).ValueGeneratedOnAdd();
             builder.Property(_ => _.Title).HasMaxLength(50).IsRequired();
-            builder.Property(_ => _.Rate).HasPrecision(10,2).IsRequired();
+            //builder.Property(_ => _.Rate).HasPrecision(10,2).IsRequired();
         }
     }
 }
