@@ -1,7 +1,6 @@
 using MovieClub.Contracts.Interfaces;
-using MovieClub.Persistence.EF;
 
-namespace DoctorAppointment.Persistance.EF;
+namespace MovieClub.Persistence.EF;
 
 public class EFUnitOfWork : UnitOfWork
 {

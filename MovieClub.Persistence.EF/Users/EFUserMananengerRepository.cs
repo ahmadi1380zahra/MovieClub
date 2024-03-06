@@ -22,6 +22,11 @@ namespace MovieClub.Persistence.EF.Users
             _users.Add(user);
         }
 
+        public void Delete(User user)
+        {
+            _users.Remove(user);
+        }
+
         public async Task<User?> Find(int id)
         {
           return await _users.FirstOrDefaultAsync(_=>_.Id == id);

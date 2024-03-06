@@ -11,19 +11,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieClub.Services.UnitTests.Genres
+namespace MovieClub.Services.UnitTests.Genres.GenreMananger
 {
-    public class GenreDeleteTests
+    public class GenreManangerDeleteTests
     {
         private readonly EFDataContext _context;
         private readonly EFDataContext _readContext;
-        private readonly GenreService _sut;
-        public GenreDeleteTests()
+        private readonly GenreManangerService _sut;
+        public GenreManangerDeleteTests()
         {
             var db = new EFInMemoryDatabase();
             _context = db.CreateDataContext<EFDataContext>();
             _readContext = db.CreateDataContext<EFDataContext>();
-            _sut = GenreServiceFactory.Create(_context);
+            _sut = GenreManangerServiceFactory.Create(_context);
         }
         [Fact]
         public async Task Delete_deletes_a_genre_properly()

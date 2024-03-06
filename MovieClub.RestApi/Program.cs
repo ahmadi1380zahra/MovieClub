@@ -1,4 +1,3 @@
-using DoctorAppointment.Persistance.EF;
 using Microsoft.EntityFrameworkCore;
 using MovieClub.Contracts.Interfaces;
 using MovieClub.Persistence.EF;
@@ -6,6 +5,8 @@ using MovieClub.Persistence.EF.Films;
 using MovieClub.Persistence.EF.Genres;
 using MovieClub.Services.Films.FilmMananger;
 using MovieClub.Services.Films.FilmMananger.Contracts;
+using MovieClub.Services.Genres.Genre;
+using MovieClub.Services.Genres.Genre.Contracts;
 using MovieClub.Services.Genres.GenreManagers;
 using MovieClub.Services.Genres.GenreManagers.Contracts;
 
@@ -23,8 +24,10 @@ builder.Services.AddDbContext<EFDataContext>(
     options => options.UseSqlServer(connectionString));
 builder.Services.AddDbContext<EFDataContext>();
 builder.Services.AddScoped<UnitOfWork, EFUnitOfWork>();
+builder.Services.AddScoped<GenreManangerService, GenreManangerAppService>();
 builder.Services.AddScoped<GenreService, GenreAppService>();
-builder.Services.AddScoped<GenreRepository, EFGenreRepository>();
+
+builder.Services.AddScoped<GenreMananagerRepository, EFGenreMananagerRepository>();
 builder.Services.AddScoped<FilmService, FilmAppService>();
 builder.Services.AddScoped<FilmRepository, EFFilmRepository>();
 var app = builder.Build();

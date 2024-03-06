@@ -1,4 +1,4 @@
-﻿using DoctorAppointment.Persistance.EF;
+﻿
 using Microsoft.EntityFrameworkCore;
 using MovieClub.Persistence.EF;
 using MovieClub.Persistence.EF.Films;
@@ -17,7 +17,7 @@ namespace MovieClub.Tests.Tools.Films
     {
         public static FilmService Create(EFDataContext context)
         {
-            return new FilmAppService(new EFFilmRepository(context), new EFUnitOfWork(context),new EFGenreRepository(context));
+            return new FilmAppService(new EFFilmRepository(context), new EFUnitOfWork(context),new EFGenreMananagerRepository(context));
         }
     }
 }

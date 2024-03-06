@@ -8,32 +8,32 @@ using System.Threading.Tasks;
 using MovieClub.Services.Genres.GenreManagers;
 
 using MovieClub.Persistence.EF.Genres;
-using DoctorAppointment.Persistance.EF;
+
 using MovieClub.Services.Genres.GenreManagers.Contracts.Dtos;
 using FluentAssertions;
 using MovieClub.Services.Genres.GenreManagers.Contracts;
 using Microsoft.EntityFrameworkCore;
 using MovieClub.Tests.Tools.Genres;
 
-namespace MovieClub.Services.UnitTests.Genres
+namespace MovieClub.Services.UnitTests.Genres.GenreMananger
 {
-    public class GenreAddTests
+    public class GenreManangerAddTests
     {
         private readonly EFDataContext _context;
         private readonly EFDataContext _readContext;
-        private readonly GenreService _sut;
-        public GenreAddTests()
+        private readonly GenreManangerService _sut;
+        public GenreManangerAddTests()
         {
             var db = new EFInMemoryDatabase();
             _context = db.CreateDataContext<EFDataContext>();
             _readContext = db.CreateDataContext<EFDataContext>();
-            _sut = GenreServiceFactory.Create(_context);
+            _sut = GenreManangerServiceFactory.Create(_context);
         }
 
         [Fact]
         public async Task Add_adds_a_new_genre_properly()
         {
-            var dto = AddGenreDtoFactory.Create();
+            var dto = AddGenreManangerDtoFactory.Create();
 
             await _sut.Add(dto);
 

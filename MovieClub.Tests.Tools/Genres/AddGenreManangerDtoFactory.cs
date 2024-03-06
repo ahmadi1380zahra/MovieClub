@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace MovieClub.Tests.Tools.Genres
 {
-    public static class AddGenreDtoFactory
+    public static class AddGenreManangerDtoFactory
     {
-        public static AddGenreDto Create()
+        public static AddGenreManangerDto Create()
         {
-            return new AddGenreDto
+            return new AddGenreManangerDto
             {
                 Title = "dummy-title",
                 //Rate = 0

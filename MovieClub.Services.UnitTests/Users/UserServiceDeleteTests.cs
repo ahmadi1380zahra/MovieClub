@@ -1,13 +1,7 @@
-﻿
-using FluentAssertions;
-using Moq;
-using MovieClub.Contracts.Interfaces;
-using MovieClub.Entities;
+﻿using FluentAssertions;
 using MovieClub.Persistence.EF;
-using MovieClub.Persistence.EF.Users;
-using MovieClub.Services.Users.UserMananger;
 using MovieClub.Services.Users.UserMananger.Contracts;
-using MovieClub.Services.Users.UserMananger.Contracts.Dtos;
+using MovieClub.Services.Users.UserMananger.Exceptions;
 using MovieClub.Tests.Tools.Infrastructure.DatabaseConfig.Unit;
 using MovieClub.Tests.Tools.Users;
 using System;
@@ -18,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace MovieClub.Services.UnitTests.Users
 {
-    public class UserServiceAddTests
+    public class UserServiceDeleteTests
     {
         private readonly EFDataContext _context;
         private readonly EFDataContext _readContext;
         private readonly UserMananengerService _sut;
         private readonly DateTime _fakeTime;
-        public UserServiceAddTests()
+        public UserServiceDeleteTests()
         {
             var db = new EFInMemoryDatabase();
             _context = db.CreateDataContext<EFDataContext>();
@@ -33,22 +27,24 @@ namespace MovieClub.Services.UnitTests.Users
             _sut = UserMananengerServiceFactory.Create(_context, _fakeTime);
         }
         [Fact]
-        public async Task Add_adds_a_new_user_properly()
+        public async Task Delete_deletes_a_user_properly()
         {
-            var dto = AddUserManangerDtoFactory.Create();
+            var user = new UserBuilder().Build();
+            _context.Save(user);
 
-            await _sut.Add(dto);
+            await _sut.Delete(user.Id);
 
-            var actual = _readContext.Users.Single();
-            actual.FirstName.Should().Be(dto.FirstName);
-            actual.LastName.Should().Be(dto.LastName);
-            actual.PhoneNumber.Should().Be(dto.PhoneNumber);
-            actual.Age.Should().Be(dto.Age);
-            actual.Gender.Should().Be(dto.Gender);
-            actual.Address.Should().Be(dto.Address);
-            actual.CreateAt.Should().Be(_fakeTime);
-
+            var actual = _readContext.Users.FirstOrDefault(_ => _.Id == user.Id);
+            actual.Should().BeNull();
         }
+        [Fact]
+        public async Task Delete_throws_UserIsNotExistException()
+        {
+            var dummyUserId = 12;
 
+            var actual=()=> _sut.Delete(dummyUserId);
+
+         await   actual.Should().ThrowExactlyAsync<UserIsNotExistException>();
+        }
     }
 }

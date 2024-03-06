@@ -10,6 +10,7 @@ namespace MovieClub.Services.Users.UserMananger.Contracts
     public interface UserMananengerService
     {
         Task Add(AddUserManangerDto dto);
+        Task Delete(int id);
         Task Update(int id, UpdateUserManangerDto dto);
     }
 }

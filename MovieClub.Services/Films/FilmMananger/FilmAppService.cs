@@ -17,11 +17,11 @@ namespace MovieClub.Services.Films.FilmMananger
     public class FilmAppService : FilmService
     {
         private readonly FilmRepository _repository;
-        private readonly GenreRepository _genreRepository;
+        private readonly GenreMananagerRepository _genreRepository;
         private readonly UnitOfWork _unitOfWork;
         public FilmAppService(FilmRepository repository,
                              UnitOfWork unitOfWork,
-                             GenreRepository genreRepository)
+                             GenreMananagerRepository genreRepository)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
@@ -33,6 +33,26 @@ namespace MovieClub.Services.Films.FilmMananger
             if (! await _genreRepository.IsExist(dto.GenreId))
             {
                 throw new GenreIsNotExistException();
+            }
+            if (dto.DailyPriceRent<=0)
+            {
+                throw new DailyPriceRentShouldBeMoreThanZeroException();
+            }
+            if (dto.PenaltyPriceRent <= 0)
+            {
+                throw new DailyPenaltyRentShouldBeMoreThanZeroException();
+            }
+            if (dto.PublishYear <= 0)
+            {
+                throw new PublishYearShouldBeMoreThanZeroException();
+            }
+            if (dto.MinAgeLimit <= 0)
+            {
+                throw new MinAgeLimitShouldBeMoreThanZeroException();
+            }
+            if (dto.Duration <= 0)
+            {
+                throw new DurationShouldBeMoreThanZeroException();
             }
             var film = new Film
             {

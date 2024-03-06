@@ -10,6 +10,7 @@ namespace MovieClub.Services.Users.UserMananger.Contracts
     public interface UserMananengerRepository
     {
         void Add(User user);
+        void Delete(User user);
         Task<User?> Find(int id);
         void Update(User user);
     }

@@ -41,6 +41,17 @@ namespace MovieClub.Services.Users.UserMananger
             await _unitOfWork.Complete();
         }
 
+        public async Task Delete(int id)
+        {
+            var user = await _repository.Find(id);
+            if (user == null)
+            {
+                throw new UserIsNotExistException();
+            }
+            _repository.Delete(user);
+            await _unitOfWork.Complete();
+        }
+
         public async Task Update(int id, UpdateUserManangerDto dto)
         {
             var user = await _repository.Find(id);

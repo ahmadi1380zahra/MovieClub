@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Films\Film\" />
-    <Folder Include="Genres\Genre\" />
   </ItemGroup>
 
   <ItemGroup>

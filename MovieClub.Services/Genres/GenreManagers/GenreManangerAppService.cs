@@ -12,19 +12,19 @@ using System.Threading.Tasks;
 
 namespace MovieClub.Services.Genres.GenreManagers
 {
-    public class GenreAppService : GenreService
+    public class GenreManangerAppService : GenreManangerService
     {
-        private readonly GenreRepository _repository;
+        private readonly GenreMananagerRepository _repository;
         private readonly UnitOfWork _unitOfWork;
-        public GenreAppService(GenreRepository repository, UnitOfWork unitOfWork)
+        public GenreManangerAppService(GenreMananagerRepository repository, UnitOfWork unitOfWork)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Add(AddGenreDto dto)
+        public async Task Add(AddGenreManangerDto dto)
         {
-            var genre = new Genre
+            var genre = new Entities.Genre
             {
                 Title = dto.Title,
                 //Rate = 0,
@@ -48,12 +48,12 @@ namespace MovieClub.Services.Genres.GenreManagers
             await _unitOfWork.Complete();
         }
 
-        public async Task<List<GetGenreDto>?> GetAll(GetGenreFilterDto? dto)
+        public async Task<List<GetGenreManangerDto>?> GetAll(GetGenreManangerFilterDto? dto)
         {
             return await _repository.GetAll(dto);
         }
 
-        public async Task Update(int id, UpdateGenreDto dto)
+        public async Task Update(int id, UpdateGenreManangerDto dto)
         {
             var genre = await _repository.Find(id);
             if (genre is null)

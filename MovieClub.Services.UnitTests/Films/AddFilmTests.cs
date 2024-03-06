@@ -1,4 +1,4 @@
-﻿using DoctorAppointment.Persistance.EF;
+﻿
 using FluentAssertions;
 using MovieClub.Entities;
 using MovieClub.Persistence.EF;
@@ -6,6 +6,7 @@ using MovieClub.Persistence.EF.Films;
 using MovieClub.Services.Films.FilmMananger;
 using MovieClub.Services.Films.FilmMananger.Contracts;
 using MovieClub.Services.Films.FilmMananger.Contracts.Dtos;
+using MovieClub.Services.Films.FilmMananger.Exceptions;
 using MovieClub.Services.Genres.GenreManagers.Contracts;
 using MovieClub.Services.Genres.GenreManagers.Exceptions;
 using MovieClub.Tests.Tools.Films;
@@ -61,6 +62,66 @@ namespace MovieClub.Services.UnitTests.Films
             var actual = () => _sut.Add(dto);
 
             await actual.Should().ThrowExactlyAsync<GenreIsNotExistException>();
+        }
+        [Fact]
+        public async Task Add_throw_DailyPriceRentShouldBeMoreThanZeroException()
+        {
+            var genre = new GenreBuilder().Build();
+            _context.Save(genre);
+            var dummyDailyPriceRent = -10;
+            var dto = new AddFilmDtoBuilder(genre.Id).WithDailyPriceRent(dummyDailyPriceRent).Build();
+
+            var actual = () => _sut.Add(dto);
+
+            await actual.Should().ThrowExactlyAsync<DailyPriceRentShouldBeMoreThanZeroException>();
+        }
+        [Fact]
+        public async Task Add_throw_DailyPenaltyRentShouldBeMoreThanZeroException()
+        {
+            var genre = new GenreBuilder().Build();
+            _context.Save(genre);
+            var dummyPenaltyPriceRent = 0;
+            var dto = new AddFilmDtoBuilder(genre.Id).WithPenaltyPriceRent(dummyPenaltyPriceRent).Build();
+
+            var actual = () => _sut.Add(dto);
+
+            await actual.Should().ThrowExactlyAsync<DailyPenaltyRentShouldBeMoreThanZeroException>();
+        }
+        [Fact]
+        public async Task Add_throw_PublishYearShouldBeMoreThanZeroException()
+        {
+            var genre = new GenreBuilder().Build();
+            _context.Save(genre);
+            var dummyPublishYear = 0;
+            var dto = new AddFilmDtoBuilder(genre.Id).WithPublishYear(dummyPublishYear).Build();
+
+            var actual = () => _sut.Add(dto);
+
+            await actual.Should().ThrowExactlyAsync<PublishYearShouldBeMoreThanZeroException>();
+        }
+        [Fact]
+        public async Task Add_throw_MinAgeLimitShouldBeMoreThanZeroException()
+        {
+            var genre = new GenreBuilder().Build();
+            _context.Save(genre);
+            var dummyAgeLimit= -18;
+            var dto = new AddFilmDtoBuilder(genre.Id).WithMinAgeLimit(dummyAgeLimit).Build();
+
+            var actual = () => _sut.Add(dto);
+
+            await actual.Should().ThrowExactlyAsync<MinAgeLimitShouldBeMoreThanZeroException>();
+        }
+        [Fact]
+        public async Task Add_throw_DurationShouldBeMoreThanZeroException()
+        {
+            var genre = new GenreBuilder().Build();
+            _context.Save(genre);
+            var dummyduration = -1;
+            var dto = new AddFilmDtoBuilder(genre.Id).WithDuration(dummyduration).Build();
+
+            var actual = () => _sut.Add(dto);
+
+            await actual.Should().ThrowExactlyAsync<DurationShouldBeMoreThanZeroException>();
         }
     }
 }

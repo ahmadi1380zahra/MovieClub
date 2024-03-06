@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace MovieClub.Tests.Tools.Genres
 {
-    public static class UpdateDtoFactory
+    public static class GetGenreManangerFilterDtoFactory
     {
-        public static UpdateGenreDto Create(string? title=null)
+        public static GetGenreManangerFilterDto Create(string? title = null)
         {
-            return new UpdateGenreDto
+            return new GetGenreManangerFilterDto
             {
-                Title = title ?? "updated-dummy-title",
-                //Rate = 0
+                Title = title ?? null
             };
         }
     }

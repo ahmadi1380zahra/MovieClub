@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MovieClub.Services.Genres.GenreManagers.Contracts.Dtos
 {
-    public class AddGenreDto
+    public class UpdateGenreManangerDto
     {
         [Required]
         [MaxLength(50)]

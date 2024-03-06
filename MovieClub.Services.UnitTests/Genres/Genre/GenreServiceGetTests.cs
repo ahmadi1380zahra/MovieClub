@@ -1,7 +1,10 @@
 ﻿using FluentAssertions;
 using MovieClub.Persistence.EF;
+using MovieClub.Persistence.EF.Genres;
+using MovieClub.Services.Genres.Genre;
+using MovieClub.Services.Genres.Genre.Contracts;
+using MovieClub.Services.Genres.Genre.Contracts.Dtos;
 using MovieClub.Services.Genres.GenreManagers.Contracts;
-using MovieClub.Services.Genres.GenreManagers.Contracts.Dtos;
 using MovieClub.Tests.Tools.Genres;
 using MovieClub.Tests.Tools.Infrastructure.DatabaseConfig.Unit;
 using System;
@@ -10,14 +13,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieClub.Services.UnitTests.Genres
+namespace MovieClub.Services.UnitTests.Genres.Genre
 {
-    public class GenreGetTests
+    public class GenreServiceGetTests
     {
         private readonly EFDataContext _context;
         private readonly EFDataContext _readContext;
         private readonly GenreService _sut;
-        public GenreGetTests()
+        public GenreServiceGetTests()
         {
             var db = new EFInMemoryDatabase();
             _context = db.CreateDataContext<EFDataContext>();
@@ -29,18 +32,19 @@ namespace MovieClub.Services.UnitTests.Genres
         {
             var genre = new GenreBuilder().Build();
             _context.Save(genre);
-            var genre1 = new GenreBuilder().Build();
-            _context.Save(genre1);
             var genre2 = new GenreBuilder().Build();
             _context.Save(genre2);
-            var dto = GetGenreFilterDtoFactory.Create(null);
+            var dto = GetGenreFilterDtoFactory.Create();
 
-            var actual = await _sut.GetAll(dto);
+            var genres = await _sut.GetAll(dto);
 
-            actual.Count().Should().Be(3);
+            genres.Count().Should().Be(2);
+            var actual = genres.FirstOrDefault();
+            actual.Id.Should().Be(genre.Id);
+            actual.Title.Should().Be(genre.Title);
         }
         [Fact]
-        public async Task Get_gets_the_genres_by_name_filter()
+        public async Task Get_gets_the_genres_by_nameFilter()
         {
             var genre = new GenreBuilder().WithTitle("scary").Build();
             _context.Save(genre);
@@ -57,7 +61,6 @@ namespace MovieClub.Services.UnitTests.Genres
             var actual = genres[1];
             actual.Id.Should().Be(genre1.Id);
             actual.Title.Should().Be(genre1.Title);
-            //actual.Rate.Should().Be(genre1.Rate);
         }
         [Fact]
         public async Task Get_gets_a_genre_and_check_for_valid_data()
@@ -71,8 +74,6 @@ namespace MovieClub.Services.UnitTests.Genres
             var actual = genres.Single();
             actual.Id.Should().Be(genre.Id);
             actual.Title.Should().Be(genre.Title);
-            //actual.Rate.Should().Be(genre.Rate);
-
         }
     }
 }

@@ -12,19 +12,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieClub.Services.UnitTests.Genres
+namespace MovieClub.Services.UnitTests.Genres.GenreMananger
 {
-    public class GenreUpdateTests
+    public class GenreManangerUpdateTests
     {
         private readonly EFDataContext _context;
         private readonly EFDataContext _readContext;
-        private readonly GenreService _sut;
-        public GenreUpdateTests()
+        private readonly GenreManangerService _sut;
+        public GenreManangerUpdateTests()
         {
             var db = new EFInMemoryDatabase();
             _context = db.CreateDataContext<EFDataContext>();
             _readContext = db.CreateDataContext<EFDataContext>();
-            _sut = GenreServiceFactory.Create(_context);
+            _sut = GenreManangerServiceFactory.Create(_context);
         }
         [Fact]
         public async Task Update_updates_a_genre_properly()
@@ -33,7 +33,7 @@ namespace MovieClub.Services.UnitTests.Genres
             var genre = new GenreBuilder().WithTitle(title).Build();
             _context.Save(genre);
             var updatedTitle = "updatedTitle";
-            var dto = UpdateDtoFactory.Create(updatedTitle);
+            var dto = UpdateGenreManangerDtoFactory.Create(updatedTitle);
 
             await _sut.Update(genre.Id, dto);
 
@@ -44,7 +44,7 @@ namespace MovieClub.Services.UnitTests.Genres
         public async Task Update_throws_GenreIsNotExistException()
         {
             var dummyId = 15;
-            var dto = UpdateDtoFactory.Create();
+            var dto = UpdateGenreManangerDtoFactory.Create();
 
             var actual = () => _sut.Update(dummyId, dto);
 

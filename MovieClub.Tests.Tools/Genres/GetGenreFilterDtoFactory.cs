@@ -1,4 +1,4 @@
-﻿using MovieClub.Services.Genres.GenreManagers.Contracts.Dtos;
+﻿using MovieClub.Services.Genres.Genre.Contracts.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace MovieClub.Tests.Tools.Genres
 {
-    public static class GetGenreFilterDtoFactory
+    public class GetGenreFilterDtoFactory
     {
-        public static GetGenreFilterDto Create(string? title = null)
+        public static GetGenreFilterDto Create(string? name=null)
         {
-            return new GetGenreFilterDto
-            {
-                Title = title ?? null
+            return new GetGenreFilterDto { 
+                Title =name ?? null
             };
+
         }
     }
 }
