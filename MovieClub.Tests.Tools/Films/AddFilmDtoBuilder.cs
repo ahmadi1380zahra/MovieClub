@@ -26,17 +26,27 @@ namespace MovieClub.Tests.Tools.Films
                 GenreId = genreId
             };
         }
+        public AddFilmDtoBuilder WithName(string name)
+        {
+            _dto.Name = name;
+            return this;
+        }
+        public AddFilmDtoBuilder WithDirector(string director)
+        {
+            _dto.Director = director;
+            return this;
+        }
         public AddFilmDtoBuilder WithDuration(int duration)
         {
             _dto.Duration = duration;
             return this;
         }
-        public AddFilmDtoBuilder WithDailyPriceRent(int dailyPriceRent)
+        public AddFilmDtoBuilder WithDailyPriceRent(decimal dailyPriceRent)
         {
             _dto.DailyPriceRent = dailyPriceRent;
             return this;
         }
-        public AddFilmDtoBuilder WithPenaltyPriceRent(int penaltyPriceRent)
+        public AddFilmDtoBuilder WithPenaltyPriceRent(decimal penaltyPriceRent)
         {
             _dto.PenaltyPriceRent = penaltyPriceRent;
             return this;

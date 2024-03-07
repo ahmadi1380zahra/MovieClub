@@ -18,19 +18,14 @@ using System.Threading.Tasks;
 
 namespace MovieClub.Services.UnitTests.Users
 {
-    public class UserServiceAddTests
+    public class UserServiceAddTests:BusinessUnitTest
     {
-        private readonly EFDataContext _context;
-        private readonly EFDataContext _readContext;
         private readonly UserMananengerService _sut;
         private readonly DateTime _fakeTime;
         public UserServiceAddTests()
         {
-            var db = new EFInMemoryDatabase();
-            _context = db.CreateDataContext<EFDataContext>();
-            _readContext = db.CreateDataContext<EFDataContext>();
             _fakeTime = new DateTime(2018, 2, 4);
-            _sut = UserMananengerServiceFactory.Create(_context, _fakeTime);
+            _sut = UserMananengerServiceFactory.Create(SetupContext, _fakeTime);
         }
         [Fact]
         public async Task Add_adds_a_new_user_properly()
@@ -39,7 +34,7 @@ namespace MovieClub.Services.UnitTests.Users
 
             await _sut.Add(dto);
 
-            var actual = _readContext.Users.Single();
+            var actual = ReadContext.Users.Single();
             actual.FirstName.Should().Be(dto.FirstName);
             actual.LastName.Should().Be(dto.LastName);
             actual.PhoneNumber.Should().Be(dto.PhoneNumber);

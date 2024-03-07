@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MovieClub.Tests.Tools.Infrastructure.DatabaseConfig.Unit
+namespace MovieClub.Tests.Tools.Infrastructure.DatabaseConfig
 {
     public static class DbContextHelper
     {

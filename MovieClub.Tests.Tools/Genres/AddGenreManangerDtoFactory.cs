@@ -9,11 +9,11 @@ namespace MovieClub.Tests.Tools.Genres
 {
     public static class AddGenreManangerDtoFactory
     {
-        public static AddGenreManangerDto Create()
+        public static AddGenreManangerDto Create(string? title = null)
         {
             return new AddGenreManangerDto
             {
-                Title = "dummy-title",
+                Title = title ?? "dummy-title",
                 //Rate = 0
             };
         }

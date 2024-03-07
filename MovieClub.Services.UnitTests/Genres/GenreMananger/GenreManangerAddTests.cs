@@ -17,17 +17,13 @@ using MovieClub.Tests.Tools.Genres;
 
 namespace MovieClub.Services.UnitTests.Genres.GenreMananger
 {
-    public class GenreManangerAddTests
+    public class GenreManangerAddTests:BusinessUnitTest
     {
-        private readonly EFDataContext _context;
-        private readonly EFDataContext _readContext;
+       
         private readonly GenreManangerService _sut;
         public GenreManangerAddTests()
         {
-            var db = new EFInMemoryDatabase();
-            _context = db.CreateDataContext<EFDataContext>();
-            _readContext = db.CreateDataContext<EFDataContext>();
-            _sut = GenreManangerServiceFactory.Create(_context);
+            _sut = GenreManangerServiceFactory.Create(SetupContext);
         }
 
         [Fact]
@@ -37,7 +33,7 @@ namespace MovieClub.Services.UnitTests.Genres.GenreMananger
 
             await _sut.Add(dto);
 
-            var actual = _readContext.Genres.First();
+            var actual = ReadContext.Genres.First();
             actual.Title.Should().Be(dto.Title);
         }
     }

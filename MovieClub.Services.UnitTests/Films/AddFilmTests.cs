@@ -1,5 +1,6 @@
 ﻿
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using MovieClub.Entities;
 using MovieClub.Persistence.EF;
 using MovieClub.Persistence.EF.Films;
@@ -11,6 +12,7 @@ using MovieClub.Services.Genres.GenreManagers.Contracts;
 using MovieClub.Services.Genres.GenreManagers.Exceptions;
 using MovieClub.Tests.Tools.Films;
 using MovieClub.Tests.Tools.Genres;
+using MovieClub.Tests.Tools.Infrastructure.DatabaseConfig;
 using MovieClub.Tests.Tools.Infrastructure.DatabaseConfig.Unit;
 using System;
 using System.Collections.Generic;
@@ -21,28 +23,23 @@ using System.Threading.Tasks;
 
 namespace MovieClub.Services.UnitTests.Films
 {
-    public class AddFilmTests
+    public class AddFilmTests: BusinessUnitTest
     {
-        private readonly EFDataContext _context;
-        private readonly EFDataContext _readContext;
         private readonly FilmService _sut;
         public AddFilmTests()
         {
-            var db = new EFInMemoryDatabase();
-            _context = db.CreateDataContext<EFDataContext>();
-            _readContext = db.CreateDataContext<EFDataContext>();
-            _sut = FilmServiceFactory.Create(_context);
+            _sut = FilmServiceFactory.Create(SetupContext);
         }
         [Fact]
         public async Task Add_adds_a_new_film_properly()
         {
             var genre = new GenreBuilder().Build();
-            _context.Save(genre);
+            DbContext.Save(genre);
             var dto = AddFilmDtoFactory.Create(genre.Id);
 
             await _sut.Add(dto);
 
-            var actual = _readContext.Films.Single();
+            var actual = ReadContext.Films.Single();
             actual.Name.Should().Be(dto.Name);
             actual.Description.Should().Be(dto.Description);
             actual.PublishYear.Should().Be(dto.PublishYear);
@@ -67,7 +64,7 @@ namespace MovieClub.Services.UnitTests.Films
         public async Task Add_throw_DailyPriceRentShouldBeMoreThanZeroException()
         {
             var genre = new GenreBuilder().Build();
-            _context.Save(genre);
+            DbContext.Save(genre);
             var dummyDailyPriceRent = -10;
             var dto = new AddFilmDtoBuilder(genre.Id).WithDailyPriceRent(dummyDailyPriceRent).Build();
 
@@ -79,7 +76,7 @@ namespace MovieClub.Services.UnitTests.Films
         public async Task Add_throw_DailyPenaltyRentShouldBeMoreThanZeroException()
         {
             var genre = new GenreBuilder().Build();
-            _context.Save(genre);
+            DbContext.Save(genre);
             var dummyPenaltyPriceRent = 0;
             var dto = new AddFilmDtoBuilder(genre.Id).WithPenaltyPriceRent(dummyPenaltyPriceRent).Build();
 
@@ -91,7 +88,7 @@ namespace MovieClub.Services.UnitTests.Films
         public async Task Add_throw_PublishYearShouldBeMoreThanZeroException()
         {
             var genre = new GenreBuilder().Build();
-            _context.Save(genre);
+            DbContext.Save(genre);
             var dummyPublishYear = 0;
             var dto = new AddFilmDtoBuilder(genre.Id).WithPublishYear(dummyPublishYear).Build();
 
@@ -103,7 +100,7 @@ namespace MovieClub.Services.UnitTests.Films
         public async Task Add_throw_MinAgeLimitShouldBeMoreThanZeroException()
         {
             var genre = new GenreBuilder().Build();
-            _context.Save(genre);
+            DbContext.Save(genre);
             var dummyAgeLimit= -18;
             var dto = new AddFilmDtoBuilder(genre.Id).WithMinAgeLimit(dummyAgeLimit).Build();
 
@@ -115,7 +112,7 @@ namespace MovieClub.Services.UnitTests.Films
         public async Task Add_throw_DurationShouldBeMoreThanZeroException()
         {
             var genre = new GenreBuilder().Build();
-            _context.Save(genre);
+            DbContext.Save(genre);
             var dummyduration = -1;
             var dto = new AddFilmDtoBuilder(genre.Id).WithDuration(dummyduration).Build();
 

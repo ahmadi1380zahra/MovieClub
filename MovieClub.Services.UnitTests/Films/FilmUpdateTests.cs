@@ -7,6 +7,7 @@ using MovieClub.Services.Films.FilmMananger.Exceptions;
 using MovieClub.Services.Genres.GenreManagers.Exceptions;
 using MovieClub.Tests.Tools.Films;
 using MovieClub.Tests.Tools.Genres;
+using MovieClub.Tests.Tools.Infrastructure.DatabaseConfig;
 using MovieClub.Tests.Tools.Infrastructure.DatabaseConfig.Unit;
 using System;
 using System.Collections.Generic;
@@ -16,30 +17,26 @@ using System.Threading.Tasks;
 
 namespace MovieClub.Services.UnitTests.Films
 {
-    public class FilmUpdateTests
+    public class FilmUpdateTests:BusinessUnitTest
     {
-        private readonly EFDataContext _context;
-        private readonly EFDataContext _readContext;
+        
         private readonly FilmService _sut;
         public FilmUpdateTests()
         {
-            var db = new EFInMemoryDatabase();
-            _context = db.CreateDataContext<EFDataContext>();
-            _readContext = db.CreateDataContext<EFDataContext>();
-            _sut = FilmServiceFactory.Create(_context);
+            _sut = FilmServiceFactory.Create(SetupContext);
         }
         [Fact]
         public async Task Update_updates_a_film_peoperly()
         {
             var genre = new GenreBuilder().Build();
-            _context.Save(genre);
+            DbContext.Save(genre);
             var film = new FilmBuilder().WithGenreId(genre.Id).Build();
-            _context.Save(film);
+            DbContext.Save(film);
             var dto = UpdateFilmDtoFactory.Create(genre.Id);
 
             await _sut.Update(film.Id, dto);
 
-            var actual = _readContext.Films.SingleOrDefault();
+            var actual = ReadContext.Films.SingleOrDefault();
             actual.Name.Should().Be(dto.Name);
             actual.Description.Should().Be(dto.Description);
             actual.PublishYear.Should().Be(dto.PublishYear);
@@ -54,9 +51,9 @@ namespace MovieClub.Services.UnitTests.Films
         public async Task Update_throw_GenreIsNotExistException()
         {
             var genre = new GenreBuilder().Build();
-            _context.Save(genre);
+            DbContext.Save(genre);
             var film = new FilmBuilder().WithGenreId(genre.Id).Build();
-            _context.Save(film);
+            DbContext.Save(film);
             var dummyUpdateGenreId = 12;
             var dto = UpdateFilmDtoFactory.Create(dummyUpdateGenreId);
 
@@ -68,7 +65,7 @@ namespace MovieClub.Services.UnitTests.Films
         public async Task Update_throw_FilmIsNotExistException()
         {
             var genre = new GenreBuilder().Build();
-            _context.Save(genre);
+            DbContext.Save(genre);
             var dto = UpdateFilmDtoFactory.Create(genre.Id);
             var dummyFilmId = 13;
 

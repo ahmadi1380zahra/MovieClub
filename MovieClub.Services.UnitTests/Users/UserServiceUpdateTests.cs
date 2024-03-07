@@ -4,6 +4,7 @@ using MovieClub.Persistence.EF;
 using MovieClub.Services.Users.UserMananger.Contracts;
 using MovieClub.Services.Users.UserMananger.Contracts.Dtos;
 using MovieClub.Services.Users.UserMananger.Exceptions;
+using MovieClub.Tests.Tools.Infrastructure.DatabaseConfig;
 using MovieClub.Tests.Tools.Infrastructure.DatabaseConfig.Unit;
 using MovieClub.Tests.Tools.Users;
 using System;
@@ -14,29 +15,23 @@ using System.Threading.Tasks;
 
 namespace MovieClub.Services.UnitTests.Users
 {
-    public class UserServiceUpdateTests
+    public class UserServiceUpdateTests:BusinessUnitTest
     {
-        private readonly EFDataContext _context;
-        private readonly EFDataContext _readContext;
         private readonly UserMananengerService _sut;
         public UserServiceUpdateTests()
         {
-            var db = new EFInMemoryDatabase();
-            _context = db.CreateDataContext<EFDataContext>();
-            _readContext = db.CreateDataContext<EFDataContext>();
-
-            _sut = UserMananengerServiceFactory.Create(_context);
+            _sut = UserMananengerServiceFactory.Create(SetupContext);
         }
         [Fact]
         public async Task Update_updates_a_user_properly()
         {
             var user = new UserBuilder().Build();
-            _context.Save(user);
+            DbContext.Save(user);
             var dto = UpdateUserManangerDtoFactory.Create();
 
             await _sut.Update(user.Id, dto);
 
-            var actual = _context.Users.Single();
+            var actual = ReadContext.Users.Single();
             actual.FirstName.Should().Be(dto.FirstName);
             actual.LastName.Should().Be(dto.LastName);
             actual.PhoneNumber.Should().Be(dto.PhoneNumber);

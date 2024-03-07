@@ -15,23 +15,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.Infrastructure", "02.Inf
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.Persentation", "03.Persentation", "{381AC57A-73A8-4404-9F7C-BD28795B0489}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieClub.Contracts", "MovieClub.Contracts\MovieClub.Contracts.csproj", "{DA09DE39-7E53-43E3-999D-5DFE8F52A34D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieClub.Contracts", "MovieClub.Contracts\MovieClub.Contracts.csproj", "{DA09DE39-7E53-43E3-999D-5DFE8F52A34D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieClub.Entities", "MovieClub.Entities\MovieClub.Entities.csproj", "{F67E1554-1442-43A3-893C-FC984BB85F48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieClub.Entities", "MovieClub.Entities\MovieClub.Entities.csproj", "{F67E1554-1442-43A3-893C-FC984BB85F48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieClub.Services", "MovieClub.Services\MovieClub.Services.csproj", "{7E363539-CDCE-404C-BE80-7A545DDE1D2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieClub.Services", "MovieClub.Services\MovieClub.Services.csproj", "{7E363539-CDCE-404C-BE80-7A545DDE1D2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieClub.Infrastructure", "MovieClub.Infrastructure\MovieClub.Infrastructure.csproj", "{F66DAB7D-C5A5-4FE9-8EA9-F94CC402C907}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieClub.Infrastructure", "MovieClub.Infrastructure\MovieClub.Infrastructure.csproj", "{F66DAB7D-C5A5-4FE9-8EA9-F94CC402C907}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieClub.Persistence.EF", "MovieClub.Persistence.EF\MovieClub.Persistence.EF.csproj", "{AE086CAD-4257-4950-845B-93CEE6FBB28A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieClub.Persistence.EF", "MovieClub.Persistence.EF\MovieClub.Persistence.EF.csproj", "{AE086CAD-4257-4950-845B-93CEE6FBB28A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieClub.RestApi", "MovieClub.RestApi\MovieClub.RestApi.csproj", "{EC78A0B5-9669-4707-A3D8-06A72E37C7F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieClub.RestApi", "MovieClub.RestApi\MovieClub.RestApi.csproj", "{EC78A0B5-9669-4707-A3D8-06A72E37C7F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieClub.Tests.Tools", "MovieClub.Tests.Tools\MovieClub.Tests.Tools.csproj", "{4B48902C-366F-4CA9-A92D-6512F1E0752A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieClub.Tests.Tools", "MovieClub.Tests.Tools\MovieClub.Tests.Tools.csproj", "{4B48902C-366F-4CA9-A92D-6512F1E0752A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieClub.Services.UnitTests", "MovieClub.Services.UnitTests\MovieClub.Services.UnitTests.csproj", "{C4200C3B-3500-4789-8FC2-5DC8FE7B41CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieClub.Services.UnitTests", "MovieClub.Services.UnitTests\MovieClub.Services.UnitTests.csproj", "{C4200C3B-3500-4789-8FC2-5DC8FE7B41CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieClub.Migrations", "MovieClub.Migrations\MovieClub.Migrations.csproj", "{113B7FD5-AE2E-4FB4-84B2-26AE859B11EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieClub.Migrations", "MovieClub.Migrations\MovieClub.Migrations.csproj", "{113B7FD5-AE2E-4FB4-84B2-26AE859B11EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieClub.Spec.Tests", "MovieClub.Spec.Tests\MovieClub.Spec.Tests.csproj", "{F98C5158-603F-4E60-872E-AE559B4529A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{113B7FD5-AE2E-4FB4-84B2-26AE859B11EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{113B7FD5-AE2E-4FB4-84B2-26AE859B11EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{113B7FD5-AE2E-4FB4-84B2-26AE859B11EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F98C5158-603F-4E60-872E-AE559B4529A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F98C5158-603F-4E60-872E-AE559B4529A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F98C5158-603F-4E60-872E-AE559B4529A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F98C5158-603F-4E60-872E-AE559B4529A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +99,7 @@ Global
 		{4B48902C-366F-4CA9-A92D-6512F1E0752A} = {7EAFB63A-7F1A-4F1C-B843-93AE50632EAF}
 		{C4200C3B-3500-4789-8FC2-5DC8FE7B41CE} = {7EAFB63A-7F1A-4F1C-B843-93AE50632EAF}
 		{113B7FD5-AE2E-4FB4-84B2-26AE859B11EA} = {C0FFFA83-6DD3-4408-8913-7EF3B68DFAB8}
+		{F98C5158-603F-4E60-872E-AE559B4529A6} = {7EAFB63A-7F1A-4F1C-B843-93AE50632EAF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F1851F39-C2A0-4E82-88B8-2ED9FB00D97D}

@@ -24,6 +24,7 @@ namespace MovieClub.Tests.Tools.Films
                 Director = "jonney_depp",
             };
         }
+
         public FilmBuilder WithGenreId(int genreId)
         {
             _film.GenreId = genreId;
@@ -32,6 +33,36 @@ namespace MovieClub.Tests.Tools.Films
         public FilmBuilder WithName(string name)
         {
             _film.Name = name;
+            return this;
+        }
+        public FilmBuilder WithDirector(string director)
+        {
+            _film.Director = director;
+            return this;
+        }
+        public FilmBuilder WithDuration(int duration)
+        {
+            _film.Duration = duration;
+            return this;
+        }
+        public FilmBuilder WithDailyPriceRent(decimal dailyPriceRent)
+        {
+            _film.DailyPriceRent = dailyPriceRent;
+            return this;
+        }
+        public FilmBuilder WithPenaltyPriceRent(decimal penaltyPriceRent)
+        {
+            _film.PenaltyPriceRent = penaltyPriceRent;
+            return this;
+        }
+        public FilmBuilder WithPublishYear(int publishYear)
+        {
+            _film.PublishYear = publishYear;
+            return this;
+        }
+        public FilmBuilder WithMinAgeLimit(int ageLimit)
+        {
+            _film.MinAgeLimit = ageLimit;
             return this;
         }
         public Film Build()

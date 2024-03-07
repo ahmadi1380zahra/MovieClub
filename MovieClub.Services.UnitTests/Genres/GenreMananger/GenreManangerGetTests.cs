@@ -3,6 +3,7 @@ using MovieClub.Persistence.EF;
 using MovieClub.Services.Genres.GenreManagers.Contracts;
 using MovieClub.Services.Genres.GenreManagers.Contracts.Dtos;
 using MovieClub.Tests.Tools.Genres;
+using MovieClub.Tests.Tools.Infrastructure.DatabaseConfig;
 using MovieClub.Tests.Tools.Infrastructure.DatabaseConfig.Unit;
 using System;
 using System.Collections.Generic;
@@ -12,27 +13,22 @@ using System.Threading.Tasks;
 
 namespace MovieClub.Services.UnitTests.Genres.GenreMananger
 {
-    public class GenreManangerGetTests
+    public class GenreManangerGetTests:BusinessUnitTest
     {
-        private readonly EFDataContext _context;
-        private readonly EFDataContext _readContext;
-        private readonly GenreManangerService _sut;
+     private readonly GenreManangerService _sut;
         public GenreManangerGetTests()
         {
-            var db = new EFInMemoryDatabase();
-            _context = db.CreateDataContext<EFDataContext>();
-            _readContext = db.CreateDataContext<EFDataContext>();
-            _sut = GenreManangerServiceFactory.Create(_context);
+            _sut = GenreManangerServiceFactory.Create(SetupContext);
         }
         [Fact]
         public async Task Get_gets_all_genres()
         {
             var genre = new GenreBuilder().Build();
-            _context.Save(genre);
+            DbContext.Save(genre);
             var genre1 = new GenreBuilder().Build();
-            _context.Save(genre1);
+            DbContext.Save(genre1);
             var genre2 = new GenreBuilder().Build();
-            _context.Save(genre2);
+            DbContext.Save(genre2);
             var dto = GetGenreManangerFilterDtoFactory.Create(null);
 
             var actual = await _sut.GetAll(dto);
@@ -43,11 +39,11 @@ namespace MovieClub.Services.UnitTests.Genres.GenreMananger
         public async Task Get_gets_the_genres_by_name_filter()
         {
             var genre = new GenreBuilder().WithTitle("scary").Build();
-            _context.Save(genre);
+            DbContext.Save(genre);
             var genre1 = new GenreBuilder().WithTitle("fantastic").Build();
-            _context.Save(genre1);
+            DbContext.Save(genre1);
             var genre2 = new GenreBuilder().WithTitle("foolly").Build();
-            _context.Save(genre2);
+            DbContext.Save(genre2);
             var filter = "s";
             var dto = GetGenreManangerFilterDtoFactory.Create(filter);
 
@@ -63,7 +59,7 @@ namespace MovieClub.Services.UnitTests.Genres.GenreMananger
         public async Task Get_gets_a_genre_and_check_for_valid_data()
         {
             var genre = new GenreBuilder().WithTitle("scary").Build();
-            _context.Save(genre);
+            DbContext.Save(genre);
             var dto = GetGenreManangerFilterDtoFactory.Create(null);
 
             var genres = await _sut.GetAll(dto);
