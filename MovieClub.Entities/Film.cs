@@ -20,5 +20,6 @@ namespace MovieClub.Entities
         public int Duration { get; set; }
         public Genre Genre { get; set; }
         public int GenreId { get; set; }
+        public List<Rent> Rents { get; set; }
     }
 }

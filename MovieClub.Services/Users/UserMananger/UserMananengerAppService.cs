@@ -52,6 +52,11 @@ namespace MovieClub.Services.Users.UserMananger
             await _unitOfWork.Complete();
         }
 
+        public async Task<List<GetUserManangerDto>?> GetAll(GetUserManangerFilterDto? dto)
+        {
+            return await _repository.GetAll(dto);
+        }
+
         public async Task Update(int id, UpdateUserManangerDto dto)
         {
             var user = await _repository.Find(id);

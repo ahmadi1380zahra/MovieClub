@@ -11,6 +11,7 @@ namespace MovieClub.Services.Users.UserMananger.Contracts
     {
         Task Add(AddUserManangerDto dto);
         Task Delete(int id);
+        Task<List<GetUserManangerDto>?>  GetAll(GetUserManangerFilterDto? dto);
         Task Update(int id, UpdateUserManangerDto dto);
     }
 }

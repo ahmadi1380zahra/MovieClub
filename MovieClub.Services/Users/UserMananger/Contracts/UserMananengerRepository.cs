@@ -1,4 +1,5 @@
 ﻿using MovieClub.Entities;
+using MovieClub.Services.Users.UserMananger.Contracts.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace MovieClub.Services.Users.UserMananger.Contracts
         void Add(User user);
         void Delete(User user);
         Task<User?> Find(int id);
+        Task<List<GetUserManangerDto>?> GetAll(GetUserManangerFilterDto? dto);
         void Update(User user);
     }
 }

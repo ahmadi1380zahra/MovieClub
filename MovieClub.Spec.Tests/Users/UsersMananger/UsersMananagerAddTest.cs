@@ -19,11 +19,11 @@ namespace MovieClub.Spec.Tests.Users.UsersMananger;
     IWantTo = "کاربر جدید به  فهرست کاربرها اضافه کنم",
     InOrderTo = "فیلم ها را به کاربران اجاره دهم")]
 
-public class UsersMananagerAddTest : BusinessIntegrationTest
+public class RentMananagerAddTest : BusinessIntegrationTest
 {
     private readonly UserMananengerService _sut;
     private readonly DateTime _fakeTime;
-    public UsersMananagerAddTest()
+    public RentMananagerAddTest()
     {
         _fakeTime = new DateTime(2018, 2, 4);
         _sut = UserMananengerServiceFactory.Create(SetupContext,_fakeTime);

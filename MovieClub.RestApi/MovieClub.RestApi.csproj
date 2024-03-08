@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MovieClub.Infrastructure\MovieClub.Infrastructure.csproj" />
     <ProjectReference Include="..\MovieClub.Persistence.EF\MovieClub.Persistence.EF.csproj" />
   </ItemGroup>
 

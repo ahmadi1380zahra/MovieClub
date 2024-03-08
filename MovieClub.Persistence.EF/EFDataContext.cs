@@ -16,6 +16,7 @@ public class EFDataContext : DbContext
     public DbSet<Genre> Genres { get; set; }
     public DbSet<Film> Films { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<Rent> Rents { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
