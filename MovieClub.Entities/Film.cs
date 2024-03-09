@@ -8,6 +8,10 @@ namespace MovieClub.Entities
 {
     public class Film
     {
+        public Film()
+        {
+            Rents = new();
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string? Description { get; set; }
