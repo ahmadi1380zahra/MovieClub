@@ -33,11 +33,18 @@ namespace MovieClub.Persistence.EF.Films
             return await _films.FirstOrDefaultAsync(_ => _.Id == id);
         }
 
+        public async Task<int> GenreIdIs(int filmId)
+        {
+            return await _films.Where(_ => _.Id == filmId)
+                                    .Select(_ => _.GenreId)
+                                    .FirstOrDefaultAsync(); 
+        }
+
         public async Task<List<GetFilmDto>?> GetAll(GetFilmFilterDto? dto)
         {
-            var films = _films.Include(_=>_.Genre).Select(film => new GetFilmDto()
+            var films = _films.Include(_ => _.Rents).Include(_ => _.Genre).Select(film => new GetFilmDto()
             {
-                Id=film.Id,
+                Id = film.Id,
                 Name = film.Name,
                 Description = film.Description,
                 PublishYear = film.PublishYear,
@@ -46,8 +53,13 @@ namespace MovieClub.Persistence.EF.Films
                 Director = film.Director,
                 Duration = film.Duration,
                 MinAgeLimit = "+ " + film.MinAgeLimit,
-                GenreName=film.Genre.Title
-            });
+                GenreName = film.Genre.Title,
+            //    if(film.Rents.Any(_ => _.FilmId == film.Id))
+            //{
+
+            //}
+                Rate = film.Rents.Where(_ => _.FilmId == film.Id).Average(_ => _.FilmRate)
+            }); 
             if (dto.Name != null)
             {
                 films = films.Where(_ => _.Name.Replace(" ", string.Empty).Contains(dto.Name.Replace(" ", string.Empty)));

@@ -33,19 +33,19 @@ public class GenreManangerDeleteGenreWithFilmsTests : BusinessIntegrationTest
     {
         _genre = new GenreBuilder().WithTitle("ترسناک").Build();
         DbContext.Save(_genre);
-        var film = new FilmBuilder().WithGenreId(_genre.Id).WithName("گات");
+        var film = new FilmBuilder().WithGenreId(_genre.Id).WithName("گات").Build();
         DbContext.Save(film);
     }
 
     [When("من ژانر با عنوان ترسناک را حذف میکنم.")]
-    private async Task When()
+    private void When()
     {
         _actual= ()=> _sut.Delete(_genre.Id);
 
     }
 
     [Then("باید خطای عدم امکان  حذف ژانر به علت وجود داشتن فیلم در ژانر مربوطه  را مشاهده کنم ")]
-    private async void Then()
+    private async Task Then()
     {
      await _actual.Should().ThrowAsync<GenreCantBeDeletedItHasFilmsException>();
     }
@@ -56,7 +56,7 @@ public class GenreManangerDeleteGenreWithFilmsTests : BusinessIntegrationTest
     {
         Runner.RunScenario(
             _ => Given(),
-            _ => When().Wait(),
-            _ => Then());
+            _ => When(),
+            _ => Then().Wait());
     }
 }

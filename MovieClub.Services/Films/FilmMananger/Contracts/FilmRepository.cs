@@ -13,6 +13,7 @@ namespace MovieClub.Services.Films.FilmMananger.Contracts
         void Add(Film film);
         void Delete(Film film);
         Task<Film?> Find(int id);
+        Task<int> GenreIdIs(int filmId);
         Task<List<GetFilmDto>?> GetAll(GetFilmFilterDto? dto);
         void Update(Film film);
     }

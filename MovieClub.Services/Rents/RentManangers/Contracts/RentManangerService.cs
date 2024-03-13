@@ -10,5 +10,6 @@ namespace MovieClub.Services.Rents.RentManangers.Contracts
     public interface RentManangerService
     {
         Task Add(AddRentManangerDto dto);
+        Task Update(int id, UpdateRentManangerDto dto);
     }
 }

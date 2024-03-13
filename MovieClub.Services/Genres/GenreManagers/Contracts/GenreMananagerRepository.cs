@@ -19,5 +19,6 @@ namespace MovieClub.Services.Genres.GenreManagers.Contracts
         Task<bool> IsExist(int id);
         Task<bool> IsExistFilmForThisGenre(int id);
         Task<List<GetGenreDto>?> GetAllUser(GetGenreFilterDto? dto);
+        Task<bool> IsReduplicate(string title);
     }
 }

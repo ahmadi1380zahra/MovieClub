@@ -29,4 +29,8 @@
     <ProjectReference Include="..\MovieClub.Tests.Tools\MovieClub.Tests.Tools.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Rents\" />
+  </ItemGroup>
+
 </Project>

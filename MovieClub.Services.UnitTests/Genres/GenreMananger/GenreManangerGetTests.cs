@@ -71,21 +71,22 @@ namespace MovieClub.Services.UnitTests.Genres.GenreMananger
             actual.Id.Should().Be(genre.Id);
             actual.Title.Should().Be(genre.Title);
         }
-        //[Fact]
-        //public async Task Get_gets_a_genre_and_check_for_valid_data_mock()
-        //{
-        //    var genre = new GenreBuilder().WithTitle("scary").Build();
-        //    DbContext.Save(genre);
-        //    var dto = GetGenreManangerFilterDtoFactory.Create("s");
-        //    var mockRepository = new Mock<GenreMananagerRepository>();
-        //    var sut = new GenreManangerAppService(mockRepository.Object,new EFUnitOfWork(SetupContext));
-            
-        //    var genres = await sut.GetAll(dto);
+        [Fact]
+        public async Task Get_gets_a_genre_and_check_for_valid_data_mock()
+        {
+            var genre = new GenreBuilder().WithTitle("scary").Build();
+            DbContext.Save(genre);
+            var dto = GetGenreManangerFilterDtoFactory.Create("s");
+            var mockRepository = new Mock<GenreMananagerRepository>();
+            var sut = new GenreManangerAppService(mockRepository.Object, new EFUnitOfWork(SetupContext));
+            mockRepository.Setup(_ => _.GetAll(It.Is<GetGenreManangerFilterDto>(_ => _.Title == "s")))
+              .ReturnsAsync(It.Is<List<GetGenreManangerDto>>(_ => _.First().Id == genre.Id && _.First().Title == genre.Title));
 
-        //    mockRepository.Setup(_ => _.GetAll(It.Is<GetGenreManangerFilterDto>(_ => _.Title == "s")))
-        //  .ReturnsAsync(It.Is<GetGenreManangerDto>(_ => _.Id == genre.Id && _.Title == genre.Title));
-                                                          
-           
-        //}
+            var genres = await sut.GetAll(dto);
+
+
+
+
+        }
     }
 }

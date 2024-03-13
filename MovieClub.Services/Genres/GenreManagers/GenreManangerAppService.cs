@@ -24,6 +24,10 @@ namespace MovieClub.Services.Genres.GenreManagers
 
         public async Task Add(AddGenreManangerDto dto)
         {
+            if (await _repository.IsReduplicate(dto.Title))
+            {
+                throw new GenreTitleIsReduplicted();
+            }
             var genre = new Entities.Genre
             {
                 Title = dto.Title,

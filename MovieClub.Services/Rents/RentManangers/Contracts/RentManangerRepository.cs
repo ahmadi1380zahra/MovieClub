@@ -10,5 +10,9 @@ namespace MovieClub.Services.Rents.RentManangers.Contracts
     public interface RentManangerRepository
     {
         void Add(Rent rent);
+        Task<int> FilmGenreRentCounts(int userId, int genreId);
+        Task<int> FilmRentCounts(int userId);
+        Task<Rent?> Find(int id);
+        void Update(Rent rent);
     }
 }

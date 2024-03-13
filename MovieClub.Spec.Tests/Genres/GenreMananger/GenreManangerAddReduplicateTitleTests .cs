@@ -37,19 +37,19 @@ public class GenreManangerAddReduplicateTitleTests : BusinessIntegrationTest
     }
 
     [When("من ژانری با عنوان ترسناک ثبت میکنم")]
-    private async Task When()
+    private void When()
     {
         var dto=AddGenreManangerDtoFactory.Create("ترسناک");
 
 
-        _actual = async () => await _sut.Add(dto);
+        _actual =  () =>  _sut.Add(dto);
 
     }
 
     [Then("باید خطای عدم امکان ثبت ژانر با عنوان تکراری را ببینم. ")]
-    private void Then()
+    private async Task Then()
     {
-        _actual.Should().ThrowExactlyAsync<GenreIsNotExistException>();
+     await   _actual.Should().ThrowExactlyAsync<GenreTitleIsReduplicted>();
     }
 
 
@@ -58,7 +58,7 @@ public class GenreManangerAddReduplicateTitleTests : BusinessIntegrationTest
     {
         Runner.RunScenario(
             _ => Given(),
-            _ => When().Wait(),
-            _ => Then());
+            _ => When(),
+            _ => Then().Wait());
     }
 }

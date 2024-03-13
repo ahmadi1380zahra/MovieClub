@@ -42,11 +42,16 @@ namespace MovieClub.Persistence.EF.Users
             {
                 query = query.Where(_ => (_.FirstName + _.LastName).Replace(" ", string.Empty).Contains(dto.Name.Replace(" ", string.Empty)));
             }
-            List<GetUserManangerDto> users = await query.Select(user => new GetUserManangerDto
+            List<GetUserManangerDto> users = await query.Include(_=>_.Rents).Select(user => new GetUserManangerDto
             {
                 Id = user.Id,
                 FullName = user.FirstName + user.LastName,
                 Age = (DateTime.UtcNow - user.Age).Days / 365,
+                UserRate = user.Rents.Where(_=>_.GiveBackAt != null).Count(_ => ((_.GiveBackAt!  ) - _.RentAt).Value.Days <= 7)
+                         - user.Rents.Count(_ => ((_.GiveBackAt !) - _.RentAt).Value.Days > 7)
+                //UserRate = user.Rents.Count(_ => ((_.GiveBackAt?? _.RentAt) - _.RentAt).Days <= 7)
+                //         - user.Rents.Count(_ => ((_.GiveBackAt?? _.RentAt) - _.RentAt).Days > 7)
+
             }).ToListAsync();
             return users;
         }

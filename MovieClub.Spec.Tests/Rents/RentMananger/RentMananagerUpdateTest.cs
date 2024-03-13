@@ -23,28 +23,30 @@ using Xunit;
 
 namespace MovieClub.Spec.Tests.Rents.RentMananger;
 
-[Scenario("اجاره دادن فیلم به کاربر")]
+[Scenario("ویرایش کردن اطلاعات اجاره")]
 [Story("",
     AsA = "مدیر کلاب ",
-    IWantTo = "به کاربری که در فهرست کاربرها وجود دارد فیلمی که در فهرست فیلم ها وجود دارد را اجاره دهم",
-    InOrderTo = "کسب درامد کنم")]
+    IWantTo = "میخواهم  اطلاعات اجاره را ویرایش کنم",
+    InOrderTo = "تاریخ تحویل فیلم و امتیاز کاربر را مدیریت کنم")]
 
-public class RentMananagerAddTest : BusinessIntegrationTest
+public class RentMananagerUpdateTest : BusinessIntegrationTest
 {
     private readonly RentManangerService _sut;
+    private readonly DateTime _fakeDate;
     private User _user;
     private Genre _genre;
     private Film _film;
-    private readonly DateTime _fakeTime;
+    private Rent _rent;
 
-    public RentMananagerAddTest()
+    public RentMananagerUpdateTest()
     {
-        _fakeTime = new DateTime(2018, 2, 4);
-        _sut = RentManangerServiceFactory.Create(SetupContext,_fakeTime);
+        _fakeDate = new DateTime(2024 , 3 , 14);
+        _sut = RentManangerServiceFactory.Create(SetupContext,_fakeDate);
     }
-    [Given("فقط یک کاربر با نام زهرا و نام خانوادگی احمدی و تاریخ تولد 1380/2/10 وجنسیت خانم وادرس شیراز - یاوران و شماره تلفن 09027651510وجود دارد.")]
+    [Given("فقط یک کاربر با نام زهرا وجود دارد.")]
     [And("یک ژانر به اسم جنگی در فهرست ژانرها وجود دارد")]
-    [And("فیلم با عنوان گات و کارگردان نولان وحداقل سن  18 وسال انتشار 1380 و قیمت روزانه 2000  و قیمت جریمه 10درصد   ")]
+    [And("یک فیلم  با عنوان گات در فهرست فیلم ها وجود دارد  ")]
+    [And(" زهرا این فیلم را در تاریخ  2024/3/10 اجاره کرده است ")]
     private void Given()
     {
         _user = new UserBuilder()
@@ -67,24 +69,31 @@ public class RentMananagerAddTest : BusinessIntegrationTest
        .WithDirector("نولان")
        .WithMinAgeLimit(18)
        .WithPublishYear(1380)
-       .WithDailyPriceRent(200)
+       .WithDailyPriceRent(20000)
        .WithPenaltyPriceRent(0.10M)
        .WithDuration(160)
        .WithGenreId(_genre.Id)
        .Build();
         DbContext.Save(_film);
+
+        _rent = new RentBuilder(_film.Id, _user.Id)
+            .WithRentAt(new DateTime(2024,3,10))
+            .WithFilmPenaltyPrice(_film.PenaltyPriceRent)
+            .WithFilmDailyPrice(_film.DailyPriceRent)
+            .Build();
+        DbContext.Save(_rent);
     }
 
-    [When("کاربر با نام زهرا  فیلم مذکور را اجاره میبرد  ")]
+    [When("کاربر با نام زهرا فیلم مذکور را در تاریخ 2024/3/13 برمیگرداند .  ")]
     private async Task When()
     {
-        var dto = new AddRentManangerDto
+        var dto = new UpdateRentManangerDto
         {
-            UserId = _user.Id,
-            FilmId = _film.Id,
+            FilmRate = 4,
+           
         };
 
-        await _sut.Add(dto);
+        await _sut.Update(_rent.Id,dto);
 
     }
 
@@ -92,12 +101,9 @@ public class RentMananagerAddTest : BusinessIntegrationTest
     private void Then()
     {
         var actual = ReadContext.Rents.Single();
-        actual.UserId.Should().Be(_user.Id);
-        actual.FilmId.Should().Be(_film.Id);
-        actual.RentAt.Should().Be(_fakeTime);
-        actual.FilmDailyPrice.Should().Be(200);
-        actual.FilmPenaltyPrice.Should().Be(0.10M);
-
+        actual.GiveBackAt.Should().Be(_fakeDate);
+        actual.Cost.Should().Be(80000);
+        actual.FilmRate.Should().Be(4);
     }
     [Fact]
     public void Run()

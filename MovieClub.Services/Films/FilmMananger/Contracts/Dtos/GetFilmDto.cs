@@ -26,5 +26,7 @@ namespace MovieClub.Services.Films.FilmMananger.Contracts.Dtos
         public string Director { get; set; }
 
         public string GenreName { get; set; }
+
+        public Decimal? Rate { get; set; }
     }
 }

@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Films\Film\" />
-    <Folder Include="Rents\RentManangers\Exceptions\" />
   </ItemGroup>
 
   <ItemGroup>
